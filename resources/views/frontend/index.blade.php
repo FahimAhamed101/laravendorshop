@@ -5,7 +5,17 @@
 
 @section('user')
 
-  
+    @include('frontend.home.home_slider')
+
+
+
+
+    @include('frontend.home.home_features')
+    <!--End category slider-->
+
+
+
+    @include('frontend.home.home_banner')
     <!--End banners-->
 
 
@@ -16,7 +26,7 @@
 
 
 
-   
+    @include('frontend.home.home_features_products')
     <!--End Best Sales-->
 
 
