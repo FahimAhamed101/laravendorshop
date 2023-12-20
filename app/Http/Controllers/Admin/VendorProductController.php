@@ -27,7 +27,6 @@ class VendorProductController extends Controller
 
         $brands = Brand::latest()->get();
         $categories = Category::latest()->get();
-       
         return view('vendor.product.add',compact('brands','categories'));
     } // End Method
 

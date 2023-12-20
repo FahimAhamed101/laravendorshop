@@ -23,11 +23,10 @@ class ProductController extends Controller
 
 
     public function add(){
-        $subcategories = SubCategory::latest()->get();
         $activeVendor = User::where('status','active')->where('role','vendor')->latest()->get();
         $brands = Brand::latest()->get();
         $categories = Category::latest()->get();
-        return view('admin.product.add',compact('activeVendor','brands','categories','subcategories'));
+        return view('admin.product.add',compact('activeVendor','brands','categories'));
     } // End Method
 
     public function Store(Request $request){

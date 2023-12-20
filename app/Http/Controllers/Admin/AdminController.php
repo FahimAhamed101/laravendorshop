@@ -24,6 +24,32 @@ class AdminController extends Controller
         return view('admin.profile',compact('adminData'));
     } //End Method
 
+    public function adminRegister(){
+        return view('auth.user_register');
+    }
+
+    public function adminCreate(Request $request){
+        $user = User::where('role','admin')->get();
+
+        User::insert([
+            'name' => $request->name,
+            'username' => $request->username,
+            'email' => $request->email,
+            'vendor_join' => Carbon::now(),
+            'role' => 'vendor',
+            'status' => 'inactive',
+            'vendor_join' => Carbon::now(),
+            'password' => Hash::make($request->password),
+
+        ]);
+        $notification=array(
+            'message'=>'Admin Register Successfully ',
+            'alert'=>'success'
+        );
+        Notification::send($user, new VendorRegistration($request));
+        return Redirect()->route('admin.login')->with($notification);
+
+    }// End Method
     // Profile Store Data ------------------------------------------------
     public function Store(Request $request){
         $id = Auth::user()->id;
@@ -192,4 +218,5 @@ class AdminController extends Controller
     }// End Mehtod
 
 }
+
 

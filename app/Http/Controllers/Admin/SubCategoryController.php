@@ -11,7 +11,6 @@ class SubCategoryController extends Controller
 {
     public function index(){
         $subcategories = SubCategory::latest()->get();
-        $category = Category::orderBy('category_name','ASC')->get();
         return view('admin.subcategory.index',compact('subcategories'));
 
     } // End Index Method
