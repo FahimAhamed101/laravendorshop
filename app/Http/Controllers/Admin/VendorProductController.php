@@ -41,8 +41,8 @@ class VendorProductController extends Controller
     public function Store(Request $request){
         $image = $request->file('product_thumbnail');
         $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
-        Image::make($image)->resize(800,800)->save('media/product/'.$name_gen);
-        $save_url = ('media/product/'.$name_gen);
+        Image::make($image)->resize(800,800)->save('public/media/product/'.$name_gen);
+        $save_url = ('public/media/product/'.$name_gen);
 
         $product_id = Product::insertGetId([
             'brand_id' => $request->brand_id,
@@ -73,8 +73,8 @@ class VendorProductController extends Controller
         $images = $request->file('multi_img');
         foreach ($images as $img) {
             $make_name = hexdec(uniqid()).'.'.$img->getClientOriginalExtension();
-            Image::make($img)->resize(800,800)->save('media/multiImage/'.$make_name);
-            $uploadPath = 'media/multiImage/'.$make_name;
+            Image::make($img)->resize(800,800)->save('public/media/multiImage/'.$make_name);
+            $uploadPath = 'public/media/multiImage/'.$make_name;
 
             MultiImage::insert([
                 'product_id' => $product_id,
