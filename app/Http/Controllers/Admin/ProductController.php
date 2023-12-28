@@ -13,7 +13,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
-
+use Illuminate\Support\Facades\Storage;
 class ProductController extends Controller
 {
     public function index(){
@@ -34,8 +34,9 @@ class ProductController extends Controller
         $manager = new ImageManager(new Driver());
         
         $name_gen = hexdec(uniqid()).'.'.$request->file('product_thumbnail')->getClientOriginalExtension();
-        $image = $manager->read($request->file('product_thumbnail')); 
-        $image->resize(1100,1100)->save(base_path('public/media/product/'.$name_gen));
+        $image = $manager->read($request->file('product_thumbnail'));
+        
+        $image->resize(1100,1100)->save(Storage::disk('public')->makeDirectory('media/product/').$name_gen);
         $save_url = 'media/product/'.$name_gen;
 
         $product_id = Product::insertGetId([
