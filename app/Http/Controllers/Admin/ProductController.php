@@ -36,7 +36,7 @@ class ProductController extends Controller
         $name_gen = hexdec(uniqid()).'.'.$request->file('product_thumbnail')->getClientOriginalExtension();
         $image = $manager->read($request->file('product_thumbnail'));
         
-        $image->resize(1100,1100)->save(Storage::disk('public')->makeDirectory('media/product/').$name_gen);
+        $image->resize(1100,1100)->save(public_path('media/product/').$name_gen);
         $save_url = 'media/product/'.$name_gen;
 
         $product_id = Product::insertGetId([
