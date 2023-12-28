@@ -11,7 +11,8 @@ use App\Models\SubCategory;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Intervention\Image\Facades\Image;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 
 class ProductController extends Controller
 {
@@ -30,10 +31,12 @@ class ProductController extends Controller
     } // End Method
 
     public function Store(Request $request){
-        $image = $request->file('product_thumbnail');
+        $manager = new ImageManager(new Driver());
+        
         $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
-        Image::make($image)->resize(1100,1100)->save(storage_path('app/public/media/product/'.$name_gen));
-        $save_url = public_path('media/product/'.$name_gen);
+        $image = $manager->read($request->file('product_thumbnail');) 
+        Image::make($image)->resize(1100,1100)->save(base_path('public/media/product/'.$name_gen));
+        $save_url = 'media/product/'.$name_gen;
 
         $product_id = Product::insertGetId([
             'brand_id' => $request->brand_id,
