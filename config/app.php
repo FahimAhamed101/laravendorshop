@@ -171,7 +171,7 @@ return [
         App\Providers\RouteServiceProvider::class,
        
         Spatie\Permission\PermissionServiceProvider::class,
-  
+        Intervention\Image\ImageServiceProvider::class,
     ])->toArray(),
 
     /*
@@ -189,7 +189,7 @@ return [
         // 'Example' => App\Facades\Example::class,
       
         'URL' => Illuminate\Support\Facades\URL::class,  
-      
+        'Image' => Intervention\Image\Facades\Image::class,
     ])->toArray(),
 
 ];

@@ -11,9 +11,8 @@ use App\Models\SubCategory;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Intervention\Image\ImageManager;
-use Intervention\Image\Drivers\Gd\Driver;
-use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
+
 class ProductController extends Controller
 {
     public function index(){
@@ -31,13 +30,10 @@ class ProductController extends Controller
     } // End Method
 
     public function Store(Request $request){
-        $manager = new ImageManager(new Driver());
-        
-        $name_gen = hexdec(uniqid()).'.'.$request->file('product_thumbnail')->getClientOriginalExtension();
-        $image = $manager->read($request->file('product_thumbnail'));
-        
-        $image->resize(1100,1100)->save(storage_path('app/public/'.'/'.$name_gen));
-        $save_url = '/'.$name_gen;
+        $image = $request->file('product_thumbnail');
+        $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+        Image::make($image)->resize(1100,1100)->save(storage_path('app/public/'.'/'.$name_gen));
+        $save_url = (storage_path('/'.$name_gen));
 
         $product_id = Product::insertGetId([
             'brand_id' => $request->brand_id,
@@ -65,12 +61,10 @@ class ProductController extends Controller
         ]);
 
         // Multiple Image Uploaded -----------------------------------------------------
-        
-        
-        $images = $manager->read($request->file('multi_img'));
+        $images = $request->file('multi_img');
         foreach ($images as $img) {
-            $make_name = hexdec(uniqid()).'.'.$request->file('multi_img')->getClientOriginalExtension();
-            $img->save(storage_path('app/public/'.'/'.$make_name));
+            $make_name = hexdec(uniqid()).'.'.$img->getClientOriginalExtension();
+            Image::make($img)->resize(1100,1100)->save(storage_path('app/public/'.'/'.$make_name));
             $uploadPath = '/'.$make_name;
 
             MultiImage::insert([
