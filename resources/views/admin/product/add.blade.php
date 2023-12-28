@@ -78,7 +78,7 @@
 
                                     <div class="form-group mb-3">
                                         <label for="inputProductDescription" class="form-label">Multiple Images</label>
-                                        <input class="form-control" name="multi_img[]" type="file" id="multiImg" multiple=""><br>
+                                        <input class="form-control" name="multi_img" type="file" id="multiImg" multiple=""><br>
 
                                         <div class="row" id="preview_img"></div>
 
