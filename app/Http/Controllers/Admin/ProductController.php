@@ -65,9 +65,9 @@ class ProductController extends Controller
         ]);
 
         // Multiple Image Uploaded -----------------------------------------------------
-        $manager = new ImageManager(new Driver());
         
-        $images = $manager-> $request->file('multi_img');
+        
+        $images = $manager ->read( $request->file('multi_img'));
         foreach ($images as $img) {
             $make_name = hexdec(uniqid()).'.'.$img->getClientOriginalExtension();
             $img->resize(1100,1100)->save(storage_path('app/public/'.'/'.$make_name));
