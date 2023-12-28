@@ -70,7 +70,7 @@ class ProductController extends Controller
         $images = $manager->read($request->file('multi_img'));
         foreach ($images as $img) {
             $make_name = hexdec(uniqid()).'.'.$request->file('multi_img')->getClientOriginalExtension();
-            $img->resize(1100,1100)->save(storage_path('app/public/'.'/'.$make_name));
+            $img->$manager->resize(1100,1100)->save(storage_path('app/public/'.'/'.$make_name));
             $uploadPath = '/'.$make_name;
 
             MultiImage::insert([
