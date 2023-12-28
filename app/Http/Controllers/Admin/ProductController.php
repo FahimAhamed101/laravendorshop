@@ -34,7 +34,7 @@ class ProductController extends Controller
         $manager = new ImageManager(new Driver());
         
         $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
-        $image = $manager->read($request->file('product_thumbnail');) 
+        $image = $manager->read($request->file('product_thumbnail')); 
         Image::make($image)->resize(1100,1100)->save(base_path('public/media/product/'.$name_gen));
         $save_url = 'media/product/'.$name_gen;
 
