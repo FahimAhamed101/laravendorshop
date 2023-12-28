@@ -65,11 +65,13 @@ class ProductController extends Controller
         ]);
 
         // Multiple Image Uploaded -----------------------------------------------------
-        $images = $request->file('multi_img');
+        $manager = new ImageManager(new Driver());
+        
+        $images = $manager-> $request->file('multi_img');
         foreach ($images as $img) {
             $make_name = hexdec(uniqid()).'.'.$img->getClientOriginalExtension();
-            Image::make($img)->resize(1100,1100)->save(storage_path('app/public/media/multiImage/'.$make_name));
-            $uploadPath = public_path('media/multiImage/'.$make_name);
+            $img->resize(1100,1100)->save(storage_path('app/public/'.'/'.$make_name));
+            $uploadPath = '/'.$make_name;
 
             MultiImage::insert([
                 'product_id' => $product_id,
