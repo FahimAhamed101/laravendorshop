@@ -15,10 +15,10 @@ class AppServiceProvider extends ServiceProvider
     }
 
     /**
-     * Bootstrap any application services.
+     * Bootstrap any application services.\URL::forceScheme('https');
      */
     public function boot(): void
     {
-        \URL::forceScheme('https');
+        
     }
 }
