@@ -68,7 +68,7 @@ class ProductController extends Controller
             $make_name = hexdec(uniqid()).'.'.$img->getClientOriginalExtension();
             Image::make($img)->resize(1100,1100)->save(storage_path('app/public/'.$make_name));
             $uploadPath = storage_path('app/public/'.$make_name);
-            dd($uploadPath);
+           
             MultiImage::insert([
                 'product_id' => $product_id,
                 'photo_name' => $uploadPath,
