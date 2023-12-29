@@ -32,15 +32,9 @@ class ProductController extends Controller
     public function Store(Request $request){
         $image = $request->file('product_thumbnail');
         $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
-        $destinationPath = public_path('/media');
-        
-        if (!file_exists(public_path($destinationPath))) {
-                mkdir(public_path($destinationPath), 777, true);
-                    }
-
-        Image::make($image)->resize(1100,1100)->save($destinationPath.'/'.$name_gen);
-        $save_url = ($destinationPath.'/'.$name_gen);
-
+        Image::make($image)->resize(1100,1100)->save(storage_path('public/media/product/'.$name_gen));
+        $save_url = (storage_path('public/media/product/'.$name_gen));
+        dd(is_writable(storage_path('app/public/'.$path))); 
         $product_id = Product::insertGetId([
             'brand_id' => $request->brand_id,
             'category_id' => $request->category_id,
@@ -70,8 +64,8 @@ class ProductController extends Controller
         $images = $request->file('multi_img');
         foreach ($images as $img) {
             $make_name = hexdec(uniqid()).'.'.$img->getClientOriginalExtension();
-            Image::make($img)->resize(1100,1100)->save(storage_path('public/'.$make_name));
-            $uploadPath = (storage_path('public/'.$make_name));
+            Image::make($img)->resize(1100,1100)->save(storage_path('public/media/multiImage/'.$make_name));
+            $uploadPath = 'media/multiImage/'.$make_name;
             dd($uploadPath);
             MultiImage::insert([
                 'product_id' => $product_id,
