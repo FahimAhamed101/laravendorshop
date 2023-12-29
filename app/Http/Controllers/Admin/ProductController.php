@@ -32,8 +32,9 @@ class ProductController extends Controller
     public function Store(Request $request){
         $image = $request->file('product_thumbnail');
         $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
-        Image::make($image)->resize(1100,1100)->save(storage_path('public/'.$name_gen));
-        $save_url = (storage_path('public/'.$name_gen));
+        $destinationPath = public_path('/media');
+        Image::make($image)->resize(1100,1100)->save($destinationPath.'/'.$name_gen);
+        $save_url = (public_path('/media'.$name_gen));
 
         $product_id = Product::insertGetId([
             'brand_id' => $request->brand_id,
