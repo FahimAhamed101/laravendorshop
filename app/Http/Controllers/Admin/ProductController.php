@@ -34,9 +34,9 @@ class ProductController extends Controller
         $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
         
        
-        dd(is_writable(storage_path('app/public/')));
-        Image::make($image)->resize(1100,1100)->save(storage_path('public/media/product/'.$name_gen)); 
-        $save_url = (storage_path('public/media/product/'.$name_gen));
+        
+        Image::make($image)->resize(1100,1100)->save(storage_path('app/public/'.$name_gen)); 
+        $save_url = (storage_path('app/public/'.$name_gen));
         $product_id = Product::insertGetId([
             'brand_id' => $request->brand_id,
             'category_id' => $request->category_id,
