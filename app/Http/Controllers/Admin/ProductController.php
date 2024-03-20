@@ -32,11 +32,9 @@ class ProductController extends Controller
     public function Store(Request $request){
         $image = $request->file('product_thumbnail');
         $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
-        
-       
-        
-        Image::make($image)->resize(1100,1100)->save(storage_path('app/public/'.$name_gen)); 
-        $save_url = (storage_path('app/public/'.$name_gen));
+        Image::make($image)->resize(1100,1100)->save('media/product/'.$name_gen);
+        $save_url = ('media/product/'.$name_gen);
+
         $product_id = Product::insertGetId([
             'brand_id' => $request->brand_id,
             'category_id' => $request->category_id,
@@ -66,9 +64,9 @@ class ProductController extends Controller
         $images = $request->file('multi_img');
         foreach ($images as $img) {
             $make_name = hexdec(uniqid()).'.'.$img->getClientOriginalExtension();
-            Image::make($img)->resize(1100,1100)->save(storage_path('app/public/'.$make_name));
-            $uploadPath = storage_path('app/public/'.$make_name);
-           
+            Image::make($img)->resize(1100,1100)->save('media/multiImage/'.$make_name);
+            $uploadPath = 'media/multiImage/'.$make_name;
+
             MultiImage::insert([
                 'product_id' => $product_id,
                 'photo_name' => $uploadPath,
@@ -137,7 +135,7 @@ class ProductController extends Controller
 
         $image = $request->file('product_thumbnail');
         $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
-        Image::make($image)->resize(1100,1100)->save(base_path('public/media/product/'.$name_gen));
+        Image::make($image)->resize(1100,1100)->save('media/product/'.$name_gen);
         $save_url = ('media/product/'.$name_gen);
 
         if (file_exists($oldImage)) {
@@ -164,7 +162,7 @@ class ProductController extends Controller
             unlink($imgDel->photo_name);
 
             $make_name = hexdec(uniqid()).'.'.$img->getClientOriginalExtension();
-            Image::make($img)->resize(1100,1100)->save(base_path('public/media/multiImage/'.$make_name));
+            Image::make($img)->resize(1100,1100)->save('media/multiImage/'.$make_name);
             $uploadPath = 'media/multiImage/'.$make_name;
 
             MultiImage::where('id',$id)->update([
