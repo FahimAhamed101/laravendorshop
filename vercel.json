@@ -11,14 +11,21 @@
             "dest": "/public/media/"
         },
         {
-            "src": "/frontend/asset/css/(.*)",
-            "dest": "/public/frontend/asset/css/"
+            "src": "/frontend/assets/css/(.*)",
+            "dest": "/public/frontend/assets/css/"
         },
         {
-            "src": "/frontend/asset/js/(.*)",
-            "dest": "/public/frontend/asset/js/"
+            "src": "/frontend/assets/js/(.*)",
+            "dest": "/public/frontend/assets/js/"
         },
-      
+        {
+            "src": "/js/(.*)",
+            "dest": "/public/js/"
+        },
+        {
+            "src": "/css/(.*)",
+            "dest": "/public/css/"
+        },
         {
             "src": "/(.*)",
             "dest": "/api/index.php"
